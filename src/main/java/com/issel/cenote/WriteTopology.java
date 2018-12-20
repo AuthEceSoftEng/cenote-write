@@ -12,7 +12,6 @@ import org.apache.storm.kafka.ZkHosts;
 import org.apache.storm.spout.SchemeAsMultiScheme;
 import org.apache.storm.topology.TopologyBuilder;
 
-
 public class WriteTopology {
     public static void main(String[] args) {
         BrokerHosts hosts = new ZkHosts("83.212.104.172:2181,83.212.104.177:2181,83.212.96.15:2181", "/brokers");
@@ -22,8 +21,8 @@ public class WriteTopology {
         kafkaSpoutConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
 
         TopologyBuilder builder = new TopologyBuilder();
-        builder.setSpout("kafka-spout", new KafkaSpout(kafkaSpoutConfig), 15).setNumTasks(4);
-        builder.setBolt("forwardToCassandra", new WriteToCassandra(), 2).setNumTasks(4).shuffleGrouping("kafka-spout");
+        builder.setSpout("kafka-spout", new KafkaSpout(kafkaSpoutConfig), 8).setNumTasks(4);
+        builder.setBolt("forwardToCassandra", new WriteToCassandra(), 8).setNumTasks(4).shuffleGrouping("kafka-spout");
         Config config = new Config();
         config.setMaxTaskParallelism(200);
         config.setNumWorkers(10);
