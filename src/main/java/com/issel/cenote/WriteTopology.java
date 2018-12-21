@@ -21,11 +21,11 @@ public class WriteTopology {
         kafkaSpoutConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
 
         TopologyBuilder builder = new TopologyBuilder();
-        builder.setSpout("kafka-spout", new KafkaSpout(kafkaSpoutConfig), 8).setNumTasks(4);
-        builder.setBolt("forwardToCassandra", new WriteToCassandra(), 8).setNumTasks(4).shuffleGrouping("kafka-spout");
+        builder.setSpout("kafka-spout", new KafkaSpout(kafkaSpoutConfig), 16).setNumTasks(20);
+        builder.setBolt("forwardToCassandra", new WriteToCassandra(), 16).setNumTasks(20).shuffleGrouping("kafka-spout");
         Config config = new Config();
         config.setMaxTaskParallelism(200);
-        config.setNumWorkers(10);
+        config.setNumWorkers(32);
         config.put(Config.TOPOLOGY_MAX_SPOUT_PENDING, 50);
         try {
             StormSubmitter.submitTopology(args[0], config, builder.createTopology());
