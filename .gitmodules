@@ -1,3 +1,3 @@
-[submodule "python-src/resources/CassandraHandler"]
-	path = python-src/resources/CassandraHandler
-	url = https://github.com/AuthEceSoftEng/cenote-cassandra.git
+[submodule "python-src/resources/CockroachHandler"]
+	path = python-src/resources/CockroachHandler
+	url = https://github.com/AuthEceSoftEng/cenote-cockroach.git

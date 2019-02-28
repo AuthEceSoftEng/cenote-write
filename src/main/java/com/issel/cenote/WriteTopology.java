@@ -22,7 +22,7 @@ public class WriteTopology {
 
         TopologyBuilder builder = new TopologyBuilder();
         builder.setSpout("kafka-spout", new KafkaSpout(kafkaSpoutConfig), 16).setNumTasks(20);
-        builder.setBolt("forwardToCassandra", new WriteToCassandra(), 16).setNumTasks(20).shuffleGrouping("kafka-spout");
+        builder.setBolt("forwardToCockroach", new WriteToCockroach(), 16).setNumTasks(20).shuffleGrouping("kafka-spout");
         Config config = new Config();
         config.setMaxTaskParallelism(200);
         config.setNumWorkers(32);

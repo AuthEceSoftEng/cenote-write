@@ -6,11 +6,11 @@ import org.apache.storm.task.ShellBolt;
 import org.apache.storm.topology.IRichBolt;
 import org.apache.storm.topology.OutputFieldsDeclarer;
 
-public class WriteToCassandra extends ShellBolt implements IRichBolt {
+public class WriteToCockroach extends ShellBolt implements IRichBolt {
     static final long serialVersionUID = 1L;
 
-    public WriteToCassandra() {
-        super("/usr/bin/python3", "WriteToCassandra.py");
+    public WriteToCockroach() {
+        super("/usr/bin/python3", "WriteToCockroach.py");
     }
 
     @Override
