@@ -7,9 +7,14 @@ sys.path.append(os.path.join(os.path.dirname("__file__"), 'CockroachHandler'))
 from DataWrite import WriteData as wd
 
 
-
 class WriteToCassandra(storm.BasicBolt):
     # Initialize this instance
+
+    def __init__(self):
+        self._conf = None
+        self._context = None
+        self.writer = None
+
     def initialize(self, conf, context):
         self._conf = conf
         self._context = context
