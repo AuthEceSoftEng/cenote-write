@@ -17,7 +17,7 @@ import org.apache.storm.topology.TopologyBuilder;
 public class WriteTopology {
   public static void main(String[] args) {
     Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
-    BrokerHosts hosts = new ZkHosts(dotenv.get("ZOOKEEPER_SERVERS", "83.212.104.172:2181,83.212.104.177:2181,83.212.96.15:2181"), "/brokers");
+    BrokerHosts hosts = new ZkHosts(dotenv.get("ZOOKEEPER_SERVERS", "83.212.104.172:2181,155.207.19.38:2181,83.212.96.15:2181"), "/brokers");
     SpoutConfig kafkaSpoutConfig = new SpoutConfig(hosts, dotenv.get("KAFKA_TOPIC", "cenoteIncoming"), "/brokers/topics/" + dotenv.get("KAFKA_TOPIC", "cenoteIncoming"), UUID.randomUUID().toString());
     kafkaSpoutConfig.bufferSizeBytes = 1024 * 1024 * 100;
     kafkaSpoutConfig.fetchSizeBytes = 1024 * 1024 * 100;
@@ -27,7 +27,7 @@ public class WriteTopology {
     builder.setSpout("kafka-spout", new KafkaSpout(kafkaSpoutConfig), 3).setNumTasks(3);
     builder.setBolt("forwardToCockroach", new WriteToCockroach(), 3).setNumTasks(3).shuffleGrouping("kafka-spout");
     Config config = new Config();
-    config.setNumWorkers(8);
+    config.setNumWorkers(12);
     config.put(Config.TOPOLOGY_MAX_SPOUT_PENDING, 50);
     try {
       StormSubmitter.submitTopology(args[0], config, builder.createTopology());

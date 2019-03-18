@@ -3,7 +3,7 @@ import sys
 
 import storm
 
-sys.path.append(os.path.join(os.path.dirname("__file__"), 'CockroachHandler'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'CockroachHandler'))
 from DataWrite import WriteData as wd
 
 
