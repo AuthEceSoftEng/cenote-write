@@ -24,11 +24,11 @@ public class WriteTopology {
     kafkaSpoutConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
 
     TopologyBuilder builder = new TopologyBuilder();
-    builder.setSpout("kafka-spout", new KafkaSpout(kafkaSpoutConfig), 3).setNumTasks(3);
-    builder.setBolt("forwardToCockroach", new WriteToCockroach(), 3).setNumTasks(3).shuffleGrouping("kafka-spout");
+    builder.setSpout("kafka-spout", new KafkaSpout(kafkaSpoutConfig), 6).setNumTasks(4);
+    builder.setBolt("forwardToCockroach", new WriteToCockroach(), 6).setNumTasks(4).shuffleGrouping("kafka-spout");
     Config config = new Config();
     config.setNumWorkers(12);
-    config.put(Config.TOPOLOGY_MAX_SPOUT_PENDING, 50);
+    config.put(Config.TOPOLOGY_MAX_SPOUT_PENDING, 50000);
     try {
       StormSubmitter.submitTopology(args[0], config, builder.createTopology());
     } catch (Exception e) {
