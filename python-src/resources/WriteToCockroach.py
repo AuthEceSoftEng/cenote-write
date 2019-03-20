@@ -23,7 +23,9 @@ class WriteToCassandra(storm.BasicBolt):
     def process(self, tup):
         message = str(tup.values[0])
         try:
-            self.writer.write_data(message)
+            res = self.writer.write_data(message)
+            if res['response'] != 201:
+                raise Exception(res)
         except Exception as e:
             with open("cenote-write.log", "a+") as f:
                 f.write("Error: " + str(e) + " Message: " + message + "\n")
