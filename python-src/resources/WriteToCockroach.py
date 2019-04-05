@@ -4,7 +4,7 @@ import sys
 import storm
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'CockroachHandler'))
-from DataWrite import WriteData as wd
+from CockroachHandler.DataWrite import DataWrite
 
 
 class WriteToCassandra(storm.BasicBolt):
@@ -18,7 +18,7 @@ class WriteToCassandra(storm.BasicBolt):
     def initialize(self, conf, context):
         self._conf = conf
         self._context = context
-        self.writer = wd()
+        self.writer = DataWrite()
 
     def process(self, tup):
         message = str(tup.values[0])
@@ -27,7 +27,7 @@ class WriteToCassandra(storm.BasicBolt):
             if res['response'] != 201:
                 raise Exception(res)
         except Exception as e:
-            with open("cenote-write.log", "a+") as f:
+            with open("cenote-error.log", "a+") as f:
                 f.write("Error: " + str(e) + " Message: " + message + "\n")
 
 
