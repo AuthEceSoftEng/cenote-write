@@ -1,18 +1,13 @@
 package com.issel.cenote;
 
-import java.util.UUID;
-
 import io.github.cdimascio.dotenv.Dotenv;
-
 import org.apache.storm.Config;
 import org.apache.storm.StormSubmitter;
-import org.apache.storm.kafka.BrokerHosts;
-import org.apache.storm.kafka.KafkaSpout;
-import org.apache.storm.kafka.SpoutConfig;
-import org.apache.storm.kafka.StringScheme;
-import org.apache.storm.kafka.ZkHosts;
+import org.apache.storm.kafka.*;
 import org.apache.storm.spout.SchemeAsMultiScheme;
 import org.apache.storm.topology.TopologyBuilder;
+
+import java.util.UUID;
 
 public class WriteTopology {
   public static void main(String[] args) {
