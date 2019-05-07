@@ -3,8 +3,8 @@ import sys
 
 import storm
 
-sys.path.append(os.path.join(os.path.dirname(__file__), 'CockroachHandler'))
-from CockroachHandler.DataWrite import DataWrite
+os.chdir("./CockroachHandler")
+from DataWrite import DataWrite
 
 
 class WriteToCassandra(storm.BasicBolt):
