@@ -3,11 +3,11 @@ import sys
 
 import storm
 
-os.chdir("./CockroachHandler")
+sys.path.append(os.path.join(os.path.dirname(__file__), 'CockroachHandler'))
 from DataWrite import DataWrite
 
 
-class WriteToCassandra(storm.BasicBolt):
+class WriteToCockroach(storm.BasicBolt):
     # Initialize this instance
 
     def __init__(self):
@@ -21,9 +21,9 @@ class WriteToCassandra(storm.BasicBolt):
         self.writer = DataWrite()
 
     def process(self, tup):
-        message = str(tup.values[0])
+        messages = str(tup.values[0])
         try:
-            res = self.writer.write_data(message)
+            res = self.writer.write_data(messages)
             if res['response'] != 201:
                 raise Exception(res)
         except Exception as e:
@@ -32,4 +32,4 @@ class WriteToCassandra(storm.BasicBolt):
 
 
 # Start the bolt when it's invoked
-WriteToCassandra().run()
+WriteToCockroach().run()
