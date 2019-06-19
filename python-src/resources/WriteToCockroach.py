@@ -21,14 +21,14 @@ class WriteToCockroach(storm.BasicBolt):
         self.writer = DataWrite()
 
     def process(self, tup):
-        messages = str(tup.values[0])
+        messages = str(tup.values[4])
         try:
             res = self.writer.write_data(messages)
             if res['response'] != 201:
                 raise Exception(res)
         except Exception as e:
             with open("cenote-error.log", "a+") as f:
-                f.write("Error: " + str(e) + " Message: " + message + "\n")
+                f.write("Error: " + str(e) + " Message: " + messages + "\n")
 
 
 # Start the bolt when it's invoked
