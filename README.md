@@ -12,6 +12,23 @@
 
 ## Run to a cluster
 
+* Clone the repository:
+
+```bash
+$ git clone --recurse-submodules -j8 https://github.com/AuthEceSoftEng/cenote-write.git
+```
+
+* Install the requirements of `cenote-cockroach`:
+
+```bash
+$ cd python-src/resources/CockroachHandler
+$ pip3 install -r requirements.txt
+```
+
+* Set up the required `.env` files according to the provided samples in:
+  - `root` directory of the repo
+  - `python-src/resources/CockroachHandler` directory
+
 * Compile the source code:
 
 ```bash
